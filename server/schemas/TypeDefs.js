@@ -9,7 +9,9 @@ type User {
   }
 
   type Query {
+    users: [User]
     user(username: String!): User
+    me: User
   }
 `;
 
