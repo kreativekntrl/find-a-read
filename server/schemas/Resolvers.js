@@ -10,6 +10,12 @@ const resolvers = {
         user: async (parent, { username }) => {
           return User.findOne({ username }).populate('books');
         },
+        books: async () => {
+          return Book.findOne({ bookId });
+        },
+        book: async () => {
+          return Book.find();
+        }
       },
       Mutation: {
         createUser: async (parent, args) => {
@@ -23,9 +29,16 @@ const resolvers = {
             console.log(err);
             throw UserInputError("username and email must be unique");
           }
-      }
+      },
+      saveBook: async (parent, args) => {
+        try {
+          
+        } catch (err) {
+
+        }
+      },
     }
-  }
+}
 
 
 module.exports = resolvers;
