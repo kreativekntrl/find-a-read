@@ -12,24 +12,13 @@ const {
 
 const resolvers = {
   Query: {
-    users: async () => {
-      return User.find().populate('books');
-    },
-    user: async (parent, {
+    me: async (parent, {
       username
     }) => {
       return User.findOne({
         username
       }).populate('books');
     },
-    books: async () => {
-      return Book.findOne({
-        bookId
-      });
-    },
-    book: async () => {
-      return Book.find();
-    }
   },
   Mutation: {
     createUser: async (parent, args) => {
