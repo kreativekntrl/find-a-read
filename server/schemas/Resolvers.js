@@ -36,10 +36,11 @@ const resolvers = {
       try {
         // Create new user
         const user = await User.create(args);
+        const token = signToken(user);
         // Create token 
         return {
-          user,
-          token: signToken(user)
+          token,
+           user
         }
         // Return { token, user } or throw error
       } catch (err) {
