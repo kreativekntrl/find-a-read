@@ -32,7 +32,7 @@ type Book {
     _id: ID!
     authors: [String]
     description: String!
-    BookId: String!
+    bookId: String!
     image: String
     link: String
     title: String!

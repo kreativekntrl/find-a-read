@@ -40,7 +40,7 @@ const resolvers = {
         // Create token 
         return {
           token,
-           user
+          user
         }
         // Return { token, user } or throw error
       } catch (err) {
@@ -73,22 +73,48 @@ const resolvers = {
         user
       };
     },
-    saveBook: async (parent, {title, description, bookId }, context) => {
+    saveBook: async (parent, {
+      title,
+      description,
+      bookId
+    }, context) => {
       try {
         if (context.user) {
-          const updatedUser = await User.findByIdAndUpdate({id: context.user._id}, { $push: { savedBooks: {title, description, bookId} } },   { new: true, runValidators: true });
+          const updatedUser = await User.findByIdAndUpdate({
+            id: context.user._id
+          }, {
+            $push: {
+              savedBooks: {
+                title,
+                description,
+                bookId
+              }
+            }
+          }, {
+            new: true,
+            runValidators: true
+          });
           return updatedUser;
         }
       } catch (err) {
         console.log(err);
+        throw new AuthenticationError('you are not logged in');
       }
     },
-    removeBook: async (parent, {bookId}, context) => {
-      const updatedUser = await User.findByIdAndUpdate(
-        {id: context.user._id},
-        {$pull: {savedBooks: {bookId}}},
-        {new: true},
-      );
+    removeBook: async (parent, {
+      bookId
+    }, context) => {
+      const updatedUser = await User.findByIdAndUpdate({
+        id: context.user._id
+      }, {
+        $pull: {
+          savedBooks: {
+            bookId
+          }
+        }
+      }, {
+        new: true
+      }, );
       return updatedUser;
     }
   }
