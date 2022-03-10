@@ -63,7 +63,10 @@ const resolvers = {
     saveBook: async (parent, {
       title,
       description,
-      bookId
+      bookId,
+      authors,
+      link,
+      image
     }, context) => {
       try {
         if (context.user) {
@@ -74,7 +77,10 @@ const resolvers = {
               savedBooks: {
                 title,
                 description,
-                bookId
+                bookId,
+                authors,
+                link,
+                image
               }
             }
           }, {
