@@ -80,9 +80,17 @@ const resolvers = {
           return updatedUser;
         }
       } catch (err) {
-
+        console.log(err);
       }
     },
+    removeBook: async (parent, {bookId}, context) => {
+      const updatedUser = await User.findByIdAndUpdate(
+        {id: context.user._id},
+        {$pull: {savedBooks: {bookId}}},
+        {new: true},
+      );
+      return updatedUser;
+    }
   }
 }
 
