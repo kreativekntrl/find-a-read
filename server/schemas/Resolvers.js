@@ -39,7 +39,7 @@ const resolvers = {
         // Create token 
         return {
           user,
-          token: "fake_token"
+          token: signToken(user)
         }
         // Return { token, user } or throw error
       } catch (err) {
@@ -72,9 +72,12 @@ const resolvers = {
         user
       };
     },
-    saveBook: async (parent, args) => {
+    saveBook: async (parent, {title, description, bookId }, context) => {
       try {
-
+        if (context.user) {
+          const updatedUser = await User.findByIdAndUpdate({id: context.user._id}, { $push: { savedBooks: {title, description, bookId} } },   { new: true, runValidators: true });
+          return updatedUser;
+        }
       } catch (err) {
 
       }
