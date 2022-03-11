@@ -3,8 +3,7 @@ const {
   UserInputError
 } = require('apollo-server-express');
 const {
-  User,
-  Book
+  User
 } = require('../models');
 const {
   signToken
